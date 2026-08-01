@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Sistema Odonto</title>
+
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+
+body{
+
+font-family:'Segoe UI',Arial,sans-serif;
+
+margin:0;
+
+background:linear-gradient(
+180deg,
+#EAF6F6,
+#F4FBFB
+);
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+}
+
+
+
+.card{
+
+width:100%;
+
+max-width:440px;
+
+background:white;
+
+margin:25px 15px;
+
+border-radius:16px;
+
+overflow:hidden;
+
+box-shadow:
+0 8px 24px rgba(0,120,130,.15);
+
+border:1px solid #DCEEF0;
+
+}
+
+
+
+
+.topo{
+
+background:linear-gradient(
+135deg,
+#0E8C9C,
+#0A6E7C
+);
+
+padding:22px;
+
+color:white;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+
+
+.icone{
+
+width:44px;
+
+height:44px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.15);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+border:2px solid white;
+
+}
+
+
+
+.icone svg{
+
+width:26px;
+
+height:26px;
+
+}
+
+
+
+.topo h2{
+
+margin:0;
+
+font-size:18px;
+
+}
+
+
+
+.topo p{
+
+margin:3px 0 0;
+
+font-size:12px;
+
+}
+
+
+
+
+.conteudo{
+
+padding:22px;
+
+}
+
+
+
+
+label{
+
+display:block;
+
+margin-top:14px;
+
+margin-bottom:5px;
+
+font-size:12px;
+
+font-weight:600;
+
+color:#0A6E7C;
+
+text-transform:uppercase;
+
+}
+
+
+
+input,
+select{
+
+
+width:100%;
+
+padding:11px;
+
+border-radius:8px;
+
+border:1.5px solid #D3E9EB;
+
+font-size:14px;
+
+background:#FBFEFE;
+
+}
+
+
+
+input:focus,
+select:focus{
+
+outline:none;
+
+border-color:#0E8C9C;
+
+}
+
+
+
+
+button{
+
+
+width:100%;
+
+margin-top:24px;
+
+padding:13px;
+
+border:none;
+
+border-radius:9px;
+
+background:
+linear-gradient(
+135deg,
+#0E8C9C,
+#0A6E7C
+);
+
+color:white;
+
+font-size:15px;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+
+
+button:disabled{
+
+opacity:.6;
+
+}
+
+
+
+
+.msg{
+
+margin-top:14px;
+
+padding:10px;
+
+border-radius:8px;
+
+text-align:center;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+
+
+.ok{
+
+background:#E3F6F3;
+
+color:#0A6E7C;
+
+}
+
+
+
+.err{
+
+background:#FBEAEA;
+
+color:#B23A3A;
+
+}
+
+
+
+
+.rodape{
+
+padding-bottom:18px;
+
+text-align:center;
+
+font-size:11px;
+
+color:#9BB6B9;
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="card">
+
+
+<div class="topo">
+
+
+<div class="icone">
+
+<svg viewBox="0 0 24 24">
+
+<path fill="white"
+d="M12 2C9 2 6.5 3.8 5.5 6.3C4.7 8.3 5 10.3 5.3 12.3C5.6 14.3 5.9 16.3 6.6 18.3C6.9 19.2 7.4 20.2 8.4 20.4C9.5 20.6 10 19.5 10.3 18.7C10.7 17.5 10.9 16.2 11.3 15C11.5 14.4 11.7 13.6 12 13.6C12.3 13.6 12.5 14.4 12.7 15C13.1 16.2 13.3 17.5 13.7 18.7C14 19.5 14.5 20.6 15.6 20.4C16.6 20.2 17.1 19.2 17.4 18.3C18.1 16.3 18.4 14.3 18.7 12.3C19 10.3 19.3 8.3 18.5 6.3C17.5 3.8 15 2 12 2Z"/>
+
+</svg>
+
+</div>
+
+
+<div>
+
+<h2>Novo Atendimento</h2>
+
+<p>Cadastro do paciente</p>
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="conteudo">
+
+
+<form id="formCadastro">
+
+
+<label>Nome</label>
+
+<input 
+id="nome"
+placeholder="Nome completo"
+required>
+
+
+
+
+<label>Data de nascimento</label>
+
+<input 
+type="date"
+id="nascimento"
+required>
+
+
+
+
+<label>Telefone</label>
+
+<input
+id="telefone"
+placeholder="(00) 00000-0000"
+required>
+
+
+
+
+<label>Endereço</label>
+
+<input
+id="endereco"
+placeholder="Rua, número, bairro"
+required>
+
+
+
+
+<label>Serviço</label>
+
+
+<select id="servico" required disabled>
+
+<option>
+Carregando...
+</option>
+
+</select>
+
+
+
+
+<button id="btnSalvar">
+
+Salvar Cadastro
+
+</button>
+
+
+
+
+<div id="mensagem" class="msg"></div>
+
+
+</form>
+
+
+</div>
+
+
+
+<div class="rodape">
+
+Sistema de cadastro odontológico
+
+</div>
+
+
+</div>
+
+
+<!-- O JAVASCRIPT ENTRA NA PARTE 2 -->
+
+</body>
+<script>
+
+
+// =====================================
+// CONFIGURAÇÃO DA API
+// =====================================
+
+
+const API = 
+"https://script.google.com/macros/s/AKfycbxL_ourMI3pd7A7I1HBXridnI4crWV20zPmQ38PoJSkQps7xA8sPNW-leepLUCdo1npBw/exec";
+ 
+
+
+const form =
+document.getElementById("formCadastro");
+
+
+const select =
+document.getElementById("servico");
+
+
+const btn =
+document.getElementById("btnSalvar");
+
+
+const msg =
+document.getElementById("mensagem");
+
+
+
+let banco = null;
+
+
+
+
+// =====================================
+// CRIA BANCO LOCAL
+// =====================================
+
+
+let request =
+indexedDB.open(
+"Odonto_Local",
+1
+);
+
+
+
+request.onupgradeneeded=function(e){
+
+
+banco=e.target.result;
+
+
+if(!banco.objectStoreNames.contains("pendentes")){
+
+
+banco.createObjectStore(
+"pendentes",
+{
+keyPath:"id",
+autoIncrement:true
+}
+);
+
+
+}
+
+
+};
+
+
+
+
+request.onsuccess=function(e){
+
+
+banco=e.target.result;
+
+
+console.log(
+"Banco local iniciado"
+);
+
+
+
+carregarServicos();
+
+
+sincronizarPendentes();
+
+
+};
+
+
+
+
+
+// =====================================
+// BUSCAR SERVIÇOS DA PLANILHA
+// =====================================
+function carregarServicos(){
+
+fetch(API + "?acao=servicos")
+.then(function(res){
+
+console.log("Status:",res.status);
+
+return res.json();
+
+})
+
+.then(function(lista){
+
+
+console.log("Serviços recebidos:",lista);
+
+
+
+if(lista.erro){
+
+throw new Error(lista.erro);
+
+}
+
+
+
+select.innerHTML="";
+
+
+select.appendChild(
+new Option(
+"Selecione...",
+""
+)
+);
+
+
+
+lista.forEach(function(item){
+
+select.appendChild(
+new Option(
+item,
+item
+)
+);
+
+});
+
+
+
+select.disabled=false;
+
+
+})
+
+
+.catch(function(erro){
+
+console.error(
+"Erro serviços:",
+erro
+);
+
+
+mostrar(
+"Erro carregando serviços: "+erro.message,
+"err"
+);
+
+
+});
+
+
+}
+
+
+
+
+// =====================================
+// SALVAR FORMULÁRIO
+// =====================================
+
+
+form.addEventListener(
+"submit",
+function(e){
+
+
+e.preventDefault();
+
+
+
+btn.disabled=true;
+
+
+
+let dados={
+
+
+nome:
+document.getElementById("nome").value,
+
+
+nascimento:
+document.getElementById("nascimento").value,
+
+
+telefone:
+document.getElementById("telefone").value,
+
+
+endereco:
+document.getElementById("endereco").value,
+
+
+servico:
+document.getElementById("servico").value
+
+
+};
+
+
+
+
+if(navigator.onLine){
+
+
+enviarServidor(dados);
+
+
+}else{
+
+
+salvarOffline(dados);
+
+
+mostrar(
+"Salvo no banco local",
+"ok"
+);
+
+
+limpar();
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+// =====================================
+// ENVIA PARA PLANILHA
+// =====================================
+
+
+function enviarServidor(dados){
+
+
+
+fetch(API,{
+
+method:"POST",
+
+body:JSON.stringify(dados)
+
+})
+
+
+
+.then(function(res){
+
+return res.json();
+
+})
+
+
+
+.then(function(retorno){
+
+
+
+console.log(
+retorno
+);
+
+
+
+if(retorno.status==="ok"){
+
+
+mostrar(
+"Cadastro salvo!",
+"ok"
+);
+
+
+limpar();
+
+
+
+}else{
+
+
+throw new Error();
+
+}
+
+
+
+})
+
+
+
+.catch(function(){
+
+
+
+salvarOffline(dados);
+
+
+
+mostrar(
+"Sem conexão. Salvo no banco local.",
+"ok"
+);
+
+
+
+limpar();
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+// =====================================
+// SALVAR OFFLINE
+// =====================================
+
+
+function salvarOffline(dados){
+
+
+
+if(!banco){
+
+return;
+
+}
+
+
+
+let tx =
+banco.transaction(
+"pendentes",
+"readwrite"
+);
+
+
+
+let tabela =
+tx.objectStore(
+"pendentes"
+);
+
+
+
+tabela.add({
+
+
+dados:dados,
+
+
+data:new Date()
+
+
+});
+
+
+
+console.log(
+"Guardado local:",
+dados
+);
+
+
+
+}
+
+
+
+
+
+
+
+// =====================================
+// SINCRONIZAR PENDENTES
+// =====================================
+
+
+function sincronizarPendentes(){
+
+
+
+if(!navigator.onLine){
+
+return;
+
+}
+
+
+
+if(!banco){
+
+return;
+
+}
+
+
+
+let tx =
+banco.transaction(
+"pendentes",
+"readonly"
+);
+
+
+
+let tabela =
+tx.objectStore(
+"pendentes"
+);
+
+
+
+let busca =
+tabela.getAll();
+
+
+
+
+busca.onsuccess=function(){
+
+
+let lista =
+busca.result;
+
+
+
+console.log(
+"Pendentes:",
+lista.length
+);
+
+
+
+lista.forEach(function(item){
+
+
+
+fetch(API,{
+
+method:"POST",
+
+body:JSON.stringify(item.dados)
+
+})
+
+
+
+.then(function(res){
+
+return res.json();
+
+})
+
+
+.then(function(retorno){
+
+
+
+if(retorno.status==="ok"){
+
+
+removerOffline(item.id);
+
+
+}
+
+
+
+});
+
+
+
+});
+
+
+
+};
+
+
+
+}
+
+
+
+
+
+
+
+
+// =====================================
+// REMOVE DO BANCO LOCAL
+// =====================================
+
+
+function removerOffline(id){
+
+
+let tx =
+banco.transaction(
+"pendentes",
+"readwrite"
+);
+
+
+
+let tabela =
+tx.objectStore(
+"pendentes"
+);
+
+
+
+tabela.delete(id);
+
+
+
+console.log(
+"Enviado:",
+id
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+// =====================================
+// INTERNET VOLTOU
+// =====================================
+
+
+window.addEventListener(
+"online",
+function(){
+
+
+
+mostrar(
+"Internet voltou. Sincronizando...",
+"ok"
+);
+
+
+
+sincronizarPendentes();
+
+
+
+});
+
+
+
+
+
+
+
+// =====================================
+// LIMPAR FORM
+// =====================================
+
+
+function limpar(){
+
+
+form.reset();
+
+
+select.selectedIndex=0;
+
+
+btn.disabled=false;
+
+
+document
+.getElementById("nome")
+.focus();
+
+
+}
+
+
+
+
+
+
+// =====================================
+// MENSAGENS
+// =====================================
+
+
+function mostrar(texto,tipo){
+
+
+msg.innerHTML=texto;
+
+
+msg.className=
+"msg "+tipo;
+
+
+btn.disabled=false;
+
+
+}
+
+
+
+</script>
+
+</html>
